@@ -15,6 +15,15 @@
             ->write(json_encode($respuesta, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
     });
 
+    //Obtener los datos de un integrantes por DNI
+    $app->get("/integrantes/dni/{dni:[0-9]+}", function (Request $request, Response $response, array $args) {
+        $respuesta = dbGet("SELECT * FROM integrantes WHERE dni = '" .  $args["dni"] . "'");
+        return $response
+            ->withStatus(200)
+            ->withHeader("Content-Type", "application/json")
+            ->write(json_encode($respuesta, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+    });
+
     // [POST]
     
     //Nuevo Integrante
